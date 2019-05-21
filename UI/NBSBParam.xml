@@ -1,0 +1,115 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <Windows>
+        <!-- Begin Row Template-->
+        <Window name="NBSB_ParamRowTemplate" draganddrop="true" handleinput="true" savesettings="false">
+          <Size>
+            <AbsPoint x="500" y="34" />
+          </Size>
+          <Windows>
+            <FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft" />
+                <Anchor point="bottomright" relativePoint="bottomright" />
+              </Anchors>
+            </FullResizeImage>
+            <Label name="$parentLabel" inherits="EA_CheckButtonLabel" maxchars="256" textalign="right" autoresize="true" autoresizewidth="false">
+                <Size>
+                    <AbsPoint x="200" y="0" />
+                </Size>
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                        <AbsPoint x="0" y="5" />
+                    </Anchor>
+                </Anchors>
+            </Label> 
+            <Window name="$parentboolean" inherits="EA_LabelCheckButton" savesettings="false">
+                <Size><AbsPoint x="20" y="25"/></Size>
+                <Anchors>
+                    <Anchor point="topright" relativePoint="topleft" relativeto="$parentLabel">
+                        <AbsPoint x="5" y="0" />
+                    </Anchor>
+                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="NBSBParam.OnParamChange" />
+                </EventHandlers>
+            </Window> 
+            <ComboBox name="$parentlist" inherits="EA_ComboBox_DefaultResizable" >
+                <Anchors>
+                    <Anchor point="topright" relativePoint="topleft" relativeto="$parentLabel">
+                        <AbsPoint x="5" y="-3" />
+                    </Anchor>
+                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnSelChanged" function="NBSBParam.OnParamChange" />
+                </EventHandlers>
+            </ComboBox>
+            <EditBox name="$parentother" inherits="EA_EditBox_DefaultFrame" history="5" maxchars="32" taborder="1">
+                <Size>
+                    <AbsPoint x="80" y="32"/>
+                </Size>
+                <EventHandlers>
+                        <EventHandler event="OnTextChanged" function="NBSBParam.OnParamChange" />
+                </EventHandlers>
+                <Anchors>
+                    <Anchor point="topright" relativePoint="topleft" relativeTo="$parentLabel">
+                        <AbsPoint x="5" y="-5" />
+                    </Anchor>
+                </Anchors>
+            </EditBox>
+            <DynamicImage name="$parentability" textureScale="0.5" handleinput="true"  layer="popup">
+                <Size>
+                    <AbsPoint x="32" y="32" />
+                </Size>
+                <TexDims x="32" y="32" />
+                <Anchors>
+                    <Anchor point="topright" relativePoint="topleft" relativeTo="$parentLabel">
+                        <AbsPoint x="5" y="-5" />
+                    </Anchor>
+                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="NBSBParam.OnParamChange" />
+                    <EventHandler event="OnRButtonUp" function="NBSBParam.OnParamChange" />
+                    <EventHandler event="OnMouseOver" function="NBSBParam.OnAbilityTT" />
+                </EventHandlers>
+                <Windows>
+                    <DynamicImage name="$parentFrame" handleinput="false" layer="background">
+                        <Size>
+                            <AbsPoint x="32" y="32" />
+                        </Size>
+                    </DynamicImage>
+                </Windows>
+            </DynamicImage>
+            <EditBox name="$parentabilityedit" inherits="EA_EditBox_DefaultFrame" history="5" maxchars="10" taborder="1">
+                <Size>
+                    <AbsPoint x="120" y="32"/>
+                </Size>
+                <EventHandlers>
+                        <EventHandler event="OnTextChanged" function="NBSBParam.OnParamChange" />
+                </EventHandlers>
+                <Anchors>
+                    <Anchor point="topright" relativePoint="topleft" relativeTo="$parentability">
+                        <AbsPoint x="5" y="2" />
+                    </Anchor>
+                </Anchors>
+            </EditBox>
+          </Windows>
+        </Window>
+        <!-- End Row Template -->
+        <!-- Begin ListBox Definition -->
+        <ListBox name="NBSBParamList" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="NBSB_ParamRowTemplate"  visiblerows="5" rowcount="120" rowspacing="0">
+        <Size>
+            <AbsPoint x="518" y="170"/>
+        </Size>
+          <Anchors>
+            <Anchor point="topright" relativePoint="topleft" relativeTo="$parentList" >
+              <AbsPoint x="0" y="0" />
+            </Anchor>
+          </Anchors>
+          <ListData table="NBSBParam.Data" populationfunction="NBSBParam.ParamPopulateListDisplayData">
+            <ListColumns>
+              <ListColumn windowname="Label" variable="name" format="wstring" />
+            </ListColumns>
+          </ListData>
+        </ListBox>
+   </Windows>
+</Interface>

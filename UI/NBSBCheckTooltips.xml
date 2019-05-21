@@ -1,0 +1,81 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Windows>
+        <Window name="NBSBCheckTooltip" inherits="TooltipBase">
+            <Size>
+                <AbsPoint x="330" y="400" />
+            </Size>
+            <Windows>
+                <!-- Background -->
+                <Window name="$parentBackground" inherits="EA_Window_DefaultTooltipBackground" sticky="false">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parent">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </Window>
+                <Label name="$parentCheckName" font="font_default_sub_heading" maxchars="256" wordwrap="true" autoresize="true" >
+                    <Size>
+                        <AbsPoint x="300" y="0" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="5" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="255" g="204" b="102" a="255"/>
+                </Label>
+                <FullResizeImage name="$parentHeaderSeperator" inherits="EA_FullResizeImage_TintableSolidBackground" layer="popup">
+                    <Size>
+                        <AbsPoint x="380" y="3" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parentCheckName">
+                            <AbsPoint x="0" y="5" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentCheckName">
+                            <AbsPoint x="20" y="5" />
+                        </Anchor>
+                    </Anchors>
+                    <TintColor r="130" g="130" b="130" a="255"/>
+                </FullResizeImage>
+                <Label name="$parentDescription" font="font_chat_text_no_outline" wordwrap="true" autoresize="true">
+                    <Size>
+                        <AbsPoint x="300" y="60" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCheckName">
+                            <AbsPoint x="0" y="20" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+                <FullResizeImage name="$parentHeaderSeperator2" inherits="EA_FullResizeImage_TintableSolidBackground" layer="popup">
+                    <Size>
+                        <AbsPoint x="380" y="3" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parentDescription">
+                            <AbsPoint x="0" y="10" />
+                        </Anchor>
+                        <Anchor point="bottomright" relativePoint="bottomright" relativeTo="$parentDescription">
+                            <AbsPoint x="20" y="10" />
+                        </Anchor>
+                    </Anchors>
+                    <TintColor r="130" g="130" b="130" a="255"/>
+                </FullResizeImage>
+                <Label name="$parentExample" font="font_chat_text_no_outline" wordwrap="true" autoresize="true">
+                    <Size>
+                        <AbsPoint x="300" y="60" />
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentDescription">
+                            <AbsPoint x="0" y="20" />
+                        </Anchor>
+                    </Anchors>
+                </Label>
+            </Windows>
+        </Window>
+    </Windows>
+</Interface>

@@ -1,0 +1,25 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <Windows>
+        <Button name="NBSBActionButtonInput" inherits="EA_Button_DefaultTimerFrame" draganddrop="true" localscriptvars="true">
+            <Size>
+                <AbsPoint x="64" y="64" />
+            </Size>
+            <EventHandlers>
+                <EventHandler event="OnLButtonDown"     function="FrameManager.OnLButtonDown" />
+                <EventHandler event="OnLButtonUp"       function="FrameManager.OnLButtonUp" />
+                <EventHandler event="OnRButtonDown"     function="FrameManager.OnRButtonDown" />
+                <EventHandler event="OnMouseOver"       function="FrameManager.OnMouseOver" />
+                <EventHandler event="OnMouseOverEnd"    function="FrameManager.OnMouseOverEnd" />
+            </EventHandlers>
+        </Button>
+        <Window name="NBSBActionButton">
+            <Size>
+                <AbsPoint x="64" y="64" />
+            </Size>
+            <Windows>
+                <Button name="$parentAction" inherits="NBSBActionButtonInput" />
+                <Window name="$parentOverlay" inherits="ActionButtonOverlay" />
+            </Windows>
+        </Window>
+   </Windows>
+</Interface>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+  <Assets>
+    
+    <!-- Add your Textures here -->
+    
+    <Icon id="90001" texture="media/TargetNextFriendly.tga" name="Cycle through friendlies in party or warband"/>
+    <Icon id="90002" texture="media/TargetNextHurtFriendly.tga" name="Cycle through hurt friendlies in party or warband"/>
+    <Icon id="90003" texture="media/TargetMostHurtFriendly.tga" name="Target most hurt friendly in your party or warband"/>
+    <Icon id="90004" texture="media/DH.tga" name="Target the highest priority Detaunt Helper target"/>
+    <Icon id="90005" texture="media/BunnyHopTarget.tga" name="Set the Bunny Hop Target"/>
+
+  </Assets>
+  
+</Interface>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!-- Load minimap icon -->
+<Assets>
+	<Texture name="nerfedicon_img1" file="media/nerfedicon_img1.tga" />
+	<Texture name="nerfedicon_img2" file="media/nerfedicon_img2.tga" />
+</Assets>
+
+<Windows>
+	<!-- just a dummy, not sure if still necessary -->
+	<Window name="NerfedIconDummyWindow">
+	</Window>
+	
+	<!-- the nerfedbuttons ui icon, used for creating/editing sequences -->
+	<DynamicImage name="NerfedIcon" savesettings="true" handleinput="true" texture="nerfedicon_img1">
+		<Size>
+			<AbsPoint x="48" y="48" />
+		</Size>
+		
+		<TexCoords x="0" y="0" />
+		<TexDims x="48" y="48" />
+		
+		<Anchors>
+			<Anchor point="bottom" relativePoint="top" relativeTo="EA_Window_OverheadMapMapDisplay">
+				<AbsPoint x="0" y="-10" />
+			</Anchor>
+		</Anchors>
+		
+		<EventHandlers>
+			<EventHandler event="OnLButtonUp" function="NBSBCore.Show" />
+            <EventHandler event="OnMouseOver" function="NBSBCore.IconOnMouseOver" />
+            <EventHandler event="OnMouseOverEnd" function="NBSBCore.IconOnMouseOverEnd" />
+		</EventHandlers>
+	</DynamicImage>
+	
+</Windows>
+</Interface>

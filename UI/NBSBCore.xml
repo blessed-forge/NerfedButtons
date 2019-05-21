@@ -1,0 +1,253 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <Assets>
+        <Texture name="nbsminus" file="UI/Assets/minus.tga" />
+        <Texture name="nbsplus" file="UI/Assets/plus.tga" />
+   </Assets>
+   <Windows>
+        <Window name="NBSBCoreWindow" movable="true" savesettings="false">
+            <Size>
+                <AbsPoint x="878" y="396"/>
+            </Size>
+            <Anchors>
+                <Anchor point="center" relativePoint="center" relativeTo="Root">
+                    <AbsPoint x="0" y="100" />
+                </Anchor>
+            </Anchors>
+            <Windows>
+                <!-- Background -->              
+                <Window name="$parentBackground" inherits="EA_Window_DefaultFrame" >
+                    <Size>
+                        <AbsPoint x="878" y="364"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" >
+                            <AbsPoint x="0" y="32" />
+                        </Anchor>
+                    </Anchors>
+                </Window>  
+                <!-- Title -->                        
+                <Window name="$parentTitleBar" inherits="EA_TitleBar_Default" />
+                <!-- Window Close Button -->                           
+                <Button name="$parentClose" inherits="EA_Button_DefaultWindowClose" >
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topright" >
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="NBSBCore.OnClose" />
+                    </EventHandlers>
+                </Button>                   
+                <Window name="$parentActionBar" inherits="NBSBActionBarTemplate">
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="0" y="38" />
+                        </Anchor>
+                    </Anchors>
+                </Window>
+                <Window name="$parentCriteria">
+                  <Size>
+                    <AbsPoint x="878" y="110" />
+                  </Size>
+                  <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="0" y="108" />
+                        </Anchor>
+                  </Anchors>
+                  <Windows>
+                    <Window name="$parentSpecialBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+                        <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent" >
+                          <AbsPoint x="0" y="0" />
+                        </Anchor>
+                        <Size>
+                            <AbsPoint x="0" y="110" />
+                        </Size>
+                    </Window>
+                    <Label name="$parentAddon1Label" inherits="EA_CheckButtonLabel" maxchars="256" textalign="left" autoresize="true" autoresizewidth="false">
+                        <Size>
+                            <AbsPoint x="100" y="0" />
+                        </Size>
+                        <Anchors>
+                            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                <AbsPoint x="10" y="22" />
+                            </Anchor>
+                        </Anchors>
+                    </Label> 
+                    <ComboBox name="$parentAddon1List" inherits="EA_ComboBox_DefaultResizable" >
+                        <Anchors>
+                            <Anchor point="topright" relativePoint="topleft" relativeto="$parentAddon1Label">
+                                <AbsPoint x="5" y="-3" />
+                            </Anchor>
+                        </Anchors>
+                        <EventHandlers>
+                            <EventHandler event="OnSelChanged" function="NBSBCore.OnAddonSelected" />
+                        </EventHandlers>
+                    </ComboBox>
+                    <Label name="$parentSequenceLabel" inherits="EA_CheckButtonLabel" maxchars="256" textalign="left" autoresize="true" autoresizewidth="false">
+                        <Size>
+                            <AbsPoint x="100" y="0" />
+                        </Size>
+                        <Anchors>
+                            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                                <AbsPoint x="10" y="66" />
+                            </Anchor>
+                        </Anchors>
+                    </Label> 
+                    <ComboBox name="$parentSequenceList" inherits="EA_ComboBox_DefaultResizable" >
+                        <Anchors>
+                            <Anchor point="topright" relativePoint="topleft" relativeto="$parentSequenceLabel">
+                                <AbsPoint x="5" y="-3" />
+                            </Anchor>
+                        </Anchors>
+                        <EventHandlers>
+                            <EventHandler event="OnSelChanged" function="" />
+                        </EventHandlers>
+                    </ComboBox>
+                    <Button name="$parentLoad" inherits="EA_Button_DefaultResizeable">
+                        <Size>
+                            <AbsPoint x="90" y="39" />
+                        </Size>
+                        <Anchors>
+                            <Anchor point="right" relativePoint="left" relativeTo="$parentAddon1List" >
+                                <AbsPoint x="10" y="0" />
+                            </Anchor>
+                        </Anchors>
+                        <EventHandlers>
+                            <EventHandler event="OnLButtonUp" function="NBSBCore.OnLoad" />
+                        </EventHandlers>
+                    </Button>
+                    <Button name="$parentDelete" inherits="EA_Button_DefaultResizeable">
+                        <Size>
+                            <AbsPoint x="90" y="39" />
+                        </Size>
+                        <Anchors>
+                            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentLoad" >
+                                <AbsPoint x="0" y="5" />
+                            </Anchor>
+                        </Anchors>
+                        <EventHandlers>
+                            <EventHandler event="OnLButtonUp" function="NBSBCore.OnDel" />
+                        </EventHandlers>
+                    </Button>
+                    <Button name="$parentReset" inherits="EA_Button_DefaultResizeable">
+                        <Size>
+                            <AbsPoint x="90" y="39" />
+                        </Size>
+                        <Anchors>
+                            <Anchor point="topright" relativePoint="topright" relativeTo="$parent" >
+                                <AbsPoint x="-12" y="15" />
+                            </Anchor>
+                        </Anchors>
+                        <EventHandlers>
+                            <EventHandler event="OnLButtonUp" function="NBSBCore.OnReset" />
+                        </EventHandlers>
+                    </Button>
+                    <Button name="$parentSave" inherits="EA_Button_DefaultResizeable">
+                        <Size>
+                            <AbsPoint x="90" y="39" />
+                        </Size>
+                        <Anchors>
+                            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentReset" >
+                                <AbsPoint x="0" y="5" />
+                            </Anchor>
+                        </Anchors>
+                        <EventHandlers>
+                            <EventHandler event="OnLButtonUp" function="NBSBCore.OnSave" />
+                        </EventHandlers>
+                    </Button>
+                  </Windows>
+                </Window>
+                <Window name="$parentLists">
+                    <Size>
+                        <AbsPoint x="878" y="178"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentCriteria">
+                            <AbsPoint x="0" y="0" />
+                        </Anchor>
+                    </Anchors>
+                    <Windows>
+                        <Window name="$parentSpecialBackground" inherits="EA_Window_DefaultButtonBottomFrame" layer="background" >
+                            <Anchor point="bottomleft" relativePoint="bottomleft" relativeTo="$parent" >
+                              <AbsPoint x="0" y="-4" />
+                            </Anchor>
+                            <Size>
+                                <AbsPoint x="0" y="190" />
+                            </Size>
+                        </Window>
+                        <VerticalResizeImage name="$parentDivider" inherits="EA_VerticalResizeImage_DefaultVerticalSeparatorMiddle" layer="secondary">
+                          <Anchors>
+                            <Anchor point="topleft" relativePoint="topleft">
+                              <AbsPoint x="42" y="0" />
+                            </Anchor>
+                            <Anchor point="bottomleft" relativePoint="bottomleft">
+                              <AbsPoint x="42" y="-6" />
+                            </Anchor>
+                          </Anchors>
+                        </VerticalResizeImage>
+                        <DynamicImage name="$parentAdd" id="11">
+                          <Size>
+                              <AbsPoint x="24" y="24"/>
+                          </Size>
+                          <EventHandlers>
+                            <EventHandler event="OnLButtonUp" function="NBSBCore.OnToolsUp" />
+                            <EventHandler event="OnMouseOver" function="NBSBCommon.OnMouseoverToolTip" />
+                          </EventHandlers>
+                          <Anchors>
+                            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                              <AbsPoint x="13" y="20" />
+                            </Anchor>
+                          </Anchors>
+                        </DynamicImage>
+                        <DynamicImage name="$parentRemove" id="12">
+                          <Size>
+                              <AbsPoint x="24" y="24"/>
+                          </Size>
+                          <EventHandlers>
+                            <EventHandler event="OnLButtonUp" function="NBSBCore.OnToolsUp" />
+                            <EventHandler event="OnMouseOver" function="NBSBCommon.OnMouseoverToolTip" />
+                          </EventHandlers>
+                          <Anchors>
+                            <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentAdd">
+                              <AbsPoint x="0" y="10" />
+                            </Anchor>
+                          </Anchors>
+                        </DynamicImage>
+                        <DynamicImage name="$parentUp" texture="shared_01" slice="UP-arrow-depressed" id="13">
+                            <Size>
+                                <AbsPoint x="24" y="24" />
+                            </Size>
+                              <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="NBSBCore.OnToolsUp" />
+                                <EventHandler event="OnMouseOver" function="NBSBCommon.OnMouseoverToolTip" />
+                              </EventHandlers>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentRemove">
+                                  <AbsPoint x="0" y="10" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+                        <DynamicImage name="$parentDown" texture="shared_01" slice="DOWN-arrow-depressed" id="14">
+                            <Size>
+                                <AbsPoint x="24" y="24" />
+                            </Size>
+                              <EventHandlers>
+                                <EventHandler event="OnLButtonUp" function="NBSBCore.OnToolsUp" />
+                                <EventHandler event="OnMouseOver" function="NBSBCommon.OnMouseoverToolTip" />
+                              </EventHandlers>
+                            <Anchors>
+                                <Anchor point="bottomleft" relativePoint="topleft" relativeTo="$parentUp">
+                                  <AbsPoint x="0" y="10" />
+                                </Anchor>
+                            </Anchors>
+                        </DynamicImage>
+                        <!-- See NBSBChecks.xml -->
+                        <ListBox name="$parentList" inherits="NBSBChecksList"/>
+                        <!-- See NBSBParam.xml -->
+                        <ListBox name="$parentParamList" inherits="NBSBParamList"/>
+                    </Windows>
+                </Window>
+            </Windows>
+        </Window>
+   </Windows>
+</Interface>

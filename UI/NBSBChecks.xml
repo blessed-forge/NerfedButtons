@@ -1,0 +1,86 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <Windows>
+        <Button name="NBSBChecksAddButton" inherits="DefaultButton" backgroundtexture="EA_HUD_01" highlighttexture="EA_HUD_01" >
+            <Size>
+                <AbsPoint x="25" y="25" />
+            </Size>
+            <EventHandlers>
+                <EventHandler event="OnLButtonUp" function="" />
+                <EventHandler event="OnMouseOver" function="" />
+            </EventHandlers>
+            <TexSlices>
+                <Normal          id="Map-Plus-Button"            />
+                <NormalHighlit   id="Map-Plus-Button-ROLLOVER"   />
+                <Pressed         id="Map-Plus-Button-Depressed"  />
+                <PressedHighlit  id="Map-Plus-Button-Depressed"  />
+                <Disabled        id="Map-Plus-Button-Disabled"   />
+                <DisabledPressed id="Map-Plus-Button-Disabled"   />
+            </TexSlices>
+            <Sounds>
+                <Sound event="OnLButtonDown" script="Sound.Play( Sound.MINI_MAP_ZOOM_IN  )" />
+            </Sounds>
+        </Button>
+        <!-- Begin Row Template-->
+        <Window name="NBSB_ChecksRowTemplate" draganddrop="true" handleinput="true" savesettings="false">
+          <Size>
+            <AbsPoint x="278" y="34" />
+          </Size>
+          <EventHandlers>
+              <EventHandler event="OnLButtonUp" function="NBSBChecks.OnCheckRowClicked" />
+          </EventHandlers>
+          <Windows>
+            <FullResizeImage name="$parentBackground" inherits="EA_FullResizeImage_TintableSolidBackground">
+              <Anchors>
+                <Anchor point="topleft" relativePoint="topleft" />
+                <Anchor point="bottomright" relativePoint="bottomright" />
+              </Anchors>
+            </FullResizeImage> 
+            <Button name="$parentEnabled" inherits="NBSBChecksAddButton">
+                <Anchors>
+                    <Anchor point="topleft" relativePoint="topleft" relativeto="$parent">
+                        <AbsPoint x="5" y="5" />
+                    </Anchor>
+                </Anchors>
+                <EventHandlers>
+                    <EventHandler event="OnLButtonUp" function="NBSBChecks.OnSetCheck" />
+                    <EventHandler event="OnMouseOver" function="NBSBChecks.OnOverCheck" />
+                </EventHandlers>
+            </Button> 
+            <Label name="$parentLabel" inherits="EA_CheckButtonLabel" maxchars="256" autoresize="true" autoresizewidth="false">
+                <Size>
+                    <AbsPoint x="200" y="0" />
+                </Size>
+                <Anchors>
+                    <Anchor point="left" relativePoint="left" relativeTo="$parent">
+                        <AbsPoint x="0" y="0" />
+                    </Anchor>
+                </Anchors>
+            </Label>
+            <ComboBox name="$parentSelection" inherits="EA_ComboBox_DefaultResizable" >
+                <Anchors>
+                    <Anchor point="topright" relativePoint="topleft" relativeTo="$parentEnabled">
+                        <AbsPoint x="0" y="-3" />
+                    </Anchor>
+                </Anchors>
+            </ComboBox>
+          </Windows>
+        </Window>
+        <!-- End Row Template -->
+        <!-- Begin ListBox Definition -->
+        <ListBox name="NBSBChecksList" scrollbar="EA_ScrollBar_DefaultVerticalChain" rowdef="NBSB_ChecksRowTemplate"  visiblerows="5" rowcount="120" rowspacing="0">
+        <Size>
+            <AbsPoint x="300" y="170"/>
+        </Size>
+          <Anchors>
+            <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent" >
+              <AbsPoint x="50" y="0" />
+            </Anchor>
+          </Anchors>
+          <ListData table="NBSBChecks.Data" populationfunction="NBSBChecks.PopulateListDisplayData">
+            <ListColumns>
+              <ListColumn windowname="Label" variable="name" format="wstring" />
+            </ListColumns>
+          </ListData>
+        </ListBox>
+   </Windows>
+</Interface>

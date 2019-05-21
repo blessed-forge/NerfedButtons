@@ -1,0 +1,38 @@
+<Interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Interface.xsd">
+   <Windows>
+        <Window name="NBSBActionBarTemplate">
+            <Size>
+                <AbsPoint x="878" y="72"/>
+            </Size>
+            <Windows>
+                <Button name="$parentPreviousButton" inherits="EA_Button_DefaultBigLeftArrow" >
+                    <Anchors>
+                        <Anchor point="topleft" relativePoint="topleft" relativeTo="$parent">
+                            <AbsPoint x="8" y="8" />
+                        </Anchor>
+                    </Anchors>
+                   <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="NBSBActionBar.OnPrevious" />
+                    </EventHandlers>
+                </Button>
+                <Window name="$parentBar" inherits="ActionBar">
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentPreviousButton">
+                            <AbsPoint x="0" y="-8" />
+                        </Anchor>
+                    </Anchors>
+                </Window>
+                <Button name="$parentNextButton" inherits="EA_Button_DefaultBigRightArrow" >
+                    <Anchors>
+                        <Anchor point="topright" relativePoint="topleft" relativeTo="$parentBar">
+                            <AbsPoint x="0" y="8" />
+                        </Anchor>
+                    </Anchors>
+                    <EventHandlers>
+                        <EventHandler event="OnLButtonUp" function="NBSBActionBar.OnNext" />
+                    </EventHandlers>
+                </Button>
+            </Windows>
+        </Window>
+   </Windows>
+</Interface>
