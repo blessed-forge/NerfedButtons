@@ -29,6 +29,13 @@ function NBSetup_Save.Show()
         if addon == nil then
             sequence = L"";
         end
+
+        if sequence == nil then 
+          sequence = L""
+        end 
+        --d(addon)
+        --d(sequence)
+        
         TextEditBoxSetText(_windowID.."EditBox",sequence)
         providers = NBSBRegister.GetSequenceProviders();
         NBSBCommon.ComboBoxSetItemsFromList(_windowID.."AddonList",providers,NBSBLang.GetString(NBSBStrings.NONE_SELECTED));

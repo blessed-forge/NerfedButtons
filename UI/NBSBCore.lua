@@ -50,6 +50,12 @@ function NBSBCore.CleanSequence()
     NBSBCore._Show(true,newSequence);
 end
 
+function NBSBCore.DoMenu()
+	EA_Window_ContextMenu.CreateContextMenu ("NerfedIcon")
+	EA_Window_ContextMenu.AddMenuItem (L"Reset Cache", NerfedMemory.ResetCache, false, true)
+	EA_Window_ContextMenu.Finalize ()
+end
+
 
 --shows a tooltip describing NerfedButtons
 function NBSBCore.IconOnMouseOver()
@@ -100,6 +106,7 @@ function NBSBCore.Initialize()
     ButtonSetText( _windowID.."CriteriaSave", NBSBLang.GetString(NBSBStrings.SAVE_LABEL) );
     ButtonSetText( _windowID.."CriteriaReset", NBSBLang.GetString(NBSBStrings.RESET_LABEL) );
     ButtonSetText( _windowID.."CriteriaDelete", NBSBLang.GetString(NBSBStrings.DEL_LABEL) );
+    
     DynamicImageSetTexture( _listCtnr.."Add", "nbsplus", 0, 0 );
     DynamicImageSetTexture( _listCtnr.."Remove", "nbsminus", 0, 0 );
     DynamicImageSetTextureDimensions(_listCtnr.."Up", 9, 12)

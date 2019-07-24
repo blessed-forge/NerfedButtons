@@ -1,7 +1,7 @@
---[[ 
+--[[
 NerfedButtons
 Warhammer Online: Age of Reckoning, conditional action sequencing addon.
-    
+
 Copyright (C) 2009  Gareth "NerfedWar" Jones
 nerfed.war@gmail.com www.nerfedwar.net
 
@@ -26,13 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 NerfedButtons = {
     PROGNAME        = L"NerfedButtons",
     VERSION         = L"3.3",
-    
+
     TIME_DELAY      = 0.1,
-    
+
     Checks          = {}, -- Ability/Item/Macro checks
     DefaultTarget   = {}, -- Ability default target
     StayOnCast      = {}, -- Ability need StayOnCast
-    
+
     PARAMS          = {
         ability     = "abilityId",
         item        = "itemId",
@@ -54,11 +54,11 @@ NerfedButtons = {
         text        = "text",
         tier		= "tier"
     },
-    
+
     MAX_BUTTONS     = 60,
-    
+
     NeedUpdate      = false,
-    
+
     Loaded          = false
 }
 
@@ -71,7 +71,7 @@ NerfedButtons.TARGET = {
 NerfedButtons.ABILITYTYPE = {
     STANDARD    = GameData.AbilityType.STANDARD,
     MORALE      = GameData.AbilityType.MORALE,
-    TACTIC      = GameData.AbilityType.TACTIC,    
+    TACTIC      = GameData.AbilityType.TACTIC,
     GRANTED     = GameData.AbilityType.GRANTED,
     PET         = GameData.AbilityType.PET,
     PASSIVE     = GameData.AbilityType.PASSIVE,
@@ -124,13 +124,13 @@ end
 
 -- Shortcut function
 local function changeHotbar(barSlot, chosenType, actionId, enabled)
-    if enabled  or not NerfedMemory.GetDisabledButtons() then 
-        SetHotbarData(barSlot, chosenType, actionId)  
+    if enabled  or not NerfedMemory.GetDisabledButtons() then
+        SetHotbarData(barSlot, chosenType, actionId)
     else
         SetHotbarData(barSlot, 0, 0)
         local hbar, buttonid = ActionBars:BarAndButtonIdFromSlot(barSlot)
-        local iconId = NerfedMatchMaking.getIconIdFromActionId(actionId)         
-        hbar.m_Buttons[buttonid]:SetIcon(iconId, USE_DISABLED_ICON)     
+        local iconId = NerfedMatchMaking.getIconIdFromActionId(actionId)
+        hbar.m_Buttons[buttonid]:SetIcon(iconId, USE_DISABLED_ICON)
     end
 end
 
@@ -150,24 +150,24 @@ local function updateAllSlots()
 
     -- loop through configured NerfedButtons and update a hotbar slot with the appropriate ability or item
     for hotbarSlot, Sequence in pairs(NerfedMemory.GetBindings()) do
- 
+
         if type(hotbarSlot) == "number" then
-        
+
             -- get bar object and button id
             --local hbar, buttonid = ActionBars:BarAndButtonIdFromSlot(hotbarSlot)
-            
+
             -- if we dont have a bar continue
             --if not hbar then continue end
-            
+
             -- get actionId and actiontype
             local actionId, actionType = NerfedDecisions.Choose(Sequence)
 			if(NerfedAPI.IsPetAbility(actionId)) then
 				actionType = GameData.PlayerActions.COMMAND_PET_DO_ABILITY
 			end
-            
+
             -- do we have a valid ability?
             local enabled = (actionType ~= GameData.PlayerActions.NONE)
-            
+
             -- if NO valid ability then we either want to:
             -- 1    display a macro if one is configured
             -- 2    retrieve the action id and type of the last action in the sequence
@@ -187,16 +187,16 @@ local function updateAllSlots()
                         actionType = GameData.PlayerActions.USE_ITEM
                     else
                         d("NerfedButtons:UpdateAllSlots: Should not reach here")
-                    end                  
+                    end
                 else
                     --  3 blank buttons enabled
                     actionId = 0
                     actionType = GameData.PlayerActions.NONE
 	            end
 		    end
-            
+
             -- get icon id from the action id
-	        
+
             -- check if togglepages is enabled
             if NerfedMemory.GetPagesSupport() then
                 local slotPage
@@ -226,8 +226,8 @@ end
 function NerfedButtons.Initialize()
     d("NerfedButtons.Initialize()...")
     say(NerfedButtons.PROGNAME .. L" V" .. NerfedButtons.VERSION)
-    
-    -- Initialize all modules   
+
+    -- Initialize all modules
     if not NerfedMemory.Initialize() then
         say("NerfedMemory failed to initialize.")
         return
@@ -253,9 +253,9 @@ function NerfedButtons.Initialize()
         return
     end
     RegisterEventHandler(SystemData.Events.LOADING_END,      "NerfedMatchMaking.OnPlayerAbilitiesListUpdated" )
-    RegisterEventHandler(SystemData.Events.LOADING_END,      "NerfedMatchMaking.OnPlayerItemsListUpdated" )    
-    RegisterEventHandler(SystemData.Events.LOADING_END,      "NerfedUtils.doHooks" ) 
-    RegisterEventHandler(SystemData.Events.RELOAD_INTERFACE, "NerfedUtils.doHooks" ) 
+    RegisterEventHandler(SystemData.Events.LOADING_END,      "NerfedMatchMaking.OnPlayerItemsListUpdated" )
+    RegisterEventHandler(SystemData.Events.LOADING_END,      "NerfedUtils.doHooks" )
+    RegisterEventHandler(SystemData.Events.RELOAD_INTERFACE, "NerfedUtils.doHooks" )
 
 
 	CreateWindow("NerfedIcon", true)
@@ -264,10 +264,55 @@ function NerfedButtons.Initialize()
 		L"NerfedButtons",
 		false, false,
 		true, nil )
-    
+
     -- Output initialisation text
     d("NerfedButtons initialised.")
+
+
+
+
     NerfedButtons.Loaded = true
+end
+
+function NerfedButtons.Shutdown()
+  d("NerfedButtons.Shutdown()...")
+
+  UnregisterEventHandler(SystemData.Events.LOADING_END,      "NerfedMatchMaking.OnPlayerAbilitiesListUpdated" )
+  UnregisterEventHandler(SystemData.Events.LOADING_END,      "NerfedMatchMaking.OnPlayerItemsListUpdated" )
+  UnregisterEventHandler(SystemData.Events.LOADING_END,      "NerfedUtils.doHooks" )
+  UnregisterEventHandler(SystemData.Events.RELOAD_INTERFACE, "NerfedUtils.doHooks" )
+
+  UnregisterEventHandler(SystemData.Events.PLAYER_BEGIN_CAST, "NerfedEngine.OnPlayerBeginCast" )
+  UnregisterEventHandler(SystemData.Events.PLAYER_END_CAST, "NerfedEngine.OnPlayerEndCast" )
+  UnregisterEventHandler(SystemData.Events.WORLD_OBJ_COMBAT_EVENT, "NerfedEngine.OnCombatEvent")
+  UnregisterEventHandler(SystemData.Events.PLAYER_TARGET_UPDATED, "NerfedEngine.OnTargetUpdated")
+  UnregisterEventHandler(SystemData.Events.PLAYER_ABILITY_TOGGLED, "NerfedEngine.OnAbilityToggled" )
+  UnregisterEventHandler(SystemData.Events.PLAYER_CAST_TIMER_SETBACK, "NerfedEngine.OnSetbackCast")
+  UnregisterEventHandler(SystemData.Events.PLAYER_POSITION_UPDATED, "NerfedEngine.OnMove")
+  UnregisterEventHandler(SystemData.Events.LOADING_END, "NerfedEngine.OnLoading")
+  UnregisterEventHandler(SystemData.Events.RELOAD_INTERFACE, "NerfedEngine.OnLoading")
+
+  UnregisterEventHandler(SystemData.Events.PLAYER_NEW_ABILITY_LEARNED,      "NerfedMatchMaking.OnPlayerAbilitiesListUpdated" )
+  UnregisterEventHandler(SystemData.Events.PLAYER_NEW_PET_ABILITY_LEARNED,  "NerfedMatchMaking.OnPlayerAbilitiesListUpdated" )
+  UnregisterEventHandler(SystemData.Events.PLAYER_ABILITIES_LIST_UPDATED,   "NerfedMatchMaking.OnPlayerAbilitiesListUpdated" )
+
+  UnregisterEventHandler(SystemData.Events.PLAYER_INVENTORY_SLOT_UPDATED,   "NerfedMatchMaking.OnPlayerItemsListUpdated" )
+  UnregisterEventHandler(SystemData.Events.PLAYER_EQUIPMENT_SLOT_UPDATED,   "NerfedMatchMaking.OnPlayerItemsListUpdated" )
+
+  UnregisterEventHandler(SystemData.Events.PLAYER_NEW_ABILITY_LEARNED,      "NerfedMemory.buildActionDataCache" )
+  UnregisterEventHandler(SystemData.Events.PLAYER_NEW_PET_ABILITY_LEARNED,  "NerfedMemory.buildActionDataCache" )
+  UnregisterEventHandler(SystemData.Events.PLAYER_ABILITIES_LIST_UPDATED,   "NerfedMemory.buildActionDataCache" )
+
+  UnregisterEventHandler(SystemData.Events.PLAYER_INVENTORY_SLOT_UPDATED,   "NerfedMemory.buildActionDataCache" )
+  UnregisterEventHandler(SystemData.Events.PLAYER_EQUIPMENT_SLOT_UPDATED,   "NerfedMemory.buildActionDataCache" )
+
+  UnregisterEventHandler(SystemData.Events.LOADING_END,                     "NerfedMemory.buildActionDataCache" )
+  LayoutEditor.UnregisterWindow("NerfedIcon")
+  DestroyWindow("NerfedIcon")
+
+
+
+  NerfedButtons.Loaded = false
 end
 
 -- called from ui every frame
@@ -276,7 +321,7 @@ function NerfedButtons.OnUpdate(elapsed)
         TimeLeft = 0
         NerfedButtons.NeedUpdate = false
     end
-    
+
     if not NerfedButtons.Loaded or not NerfedMemory.Loaded then
         return
     end

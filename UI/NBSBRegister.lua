@@ -65,9 +65,11 @@ function NBSBRegister.SetupParameter(parameter,rowFrame)
         DynamicImageSetTexture( rowFrame.."ability", texture, tx, ty );
         DynamicImageSetTextureDimensions(rowFrame.."ability", 64,64 );
         TextEditBoxSetText(rowFrame.."abilityedit",StringToWString(""));
+	--TextEditBoxSetText(rowFrame.."abilityedit", L"");
     else
         WindowSetShowing(rowFrame.."other",true);
         TextEditBoxSetText(rowFrame.."other",StringToWString(""));
+	--TextEditBoxSetText(rowFrame.."other", L"");
     end
 end
 

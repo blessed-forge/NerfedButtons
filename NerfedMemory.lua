@@ -42,6 +42,10 @@ local function deepcopy(object)
     return _copy(object)
 end
 
+function NerfedMemory.ResetCache()
+  EA_ChatWindow.Print( L"Resetting NerfedButtons Cache" )
+  NerfedMemory.buildActionDataCache()
+end
 
 
 -- ============================
@@ -146,11 +150,16 @@ end
 -- build a cache of all item and ability data
 function NerfedMemory.buildActionDataCache()
     --d("NerfedButtons.buildActionDataCache()")
+    NerfedMemory.actionDataCache = {}
     local dataTables = nil
     
     -- set hasAction status of all actions to false
-    for actionId, actionData in pairs(NerfedMemory.actionDataCache) do
-        NerfedMemory.actionDataCache[actionId].hasAction = false
+    if NerfedMemory.actionDataCache ~= nil then
+      for actionId, actionData in pairs(NerfedMemory.actionDataCache) do
+        if NerfedMemory.actionDataCache[actionId] ~= nil then
+          NerfedMemory.actionDataCache[actionId].hasAction = false
+        end
+      end
     end
 
     -- add items to cache
@@ -166,6 +175,7 @@ function NerfedMemory.buildActionDataCache()
             DataUtils.GetQuestItems ()
         }    
     end
+    -- d(dataTables)
     for tableId, dataTable in ipairs (dataTables) do
         for _, actionData in pairs(dataTable) do
             actionData.actionType = "item"

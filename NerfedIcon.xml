@@ -29,8 +29,9 @@
 		
 		<EventHandlers>
 			<EventHandler event="OnLButtonUp" function="NBSBCore.Show" />
-            <EventHandler event="OnMouseOver" function="NBSBCore.IconOnMouseOver" />
-            <EventHandler event="OnMouseOverEnd" function="NBSBCore.IconOnMouseOverEnd" />
+      <EventHandler event="OnMouseOver" function="NBSBCore.IconOnMouseOver" />
+      <EventHandler event="OnMouseOverEnd" function="NBSBCore.IconOnMouseOverEnd" />
+      <EventHandler event="OnRButtonUp" function="NBSBCore.DoMenu" />
 		</EventHandlers>
 	</DynamicImage>
 	
