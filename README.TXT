@@ -7,8 +7,7 @@ enter "/nb" into chat for in-game usage instructions.
 
 enter "/nb ui" to bring up the graphical interface.
 
-Detailed documentation available at:
-http://www.nerfedwar.net/home/war/nerfedbuttons
+Detailed documentation available in the docs/ directory
 
 	Have fun,
 	NerfedWar and the NerfedButtons project team
